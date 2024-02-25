@@ -1,4 +1,32 @@
-"use strict";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: matrix.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: matrix.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Matrix = void 0;
 /**
@@ -46,9 +74,9 @@ class Matrix {
             throw new Error("Matrix dimensions do not match vector dimensions");
         }
         const result = [];
-        for (let i = 0; i < this.rows; i++) {
+        for (let i = 0; i &lt; this.rows; i++) {
             let sum = 0;
-            for (let j = 0; j < this.cols; j++) {
+            for (let j = 0; j &lt; this.cols; j++) {
                 sum += this.data[i][j] * vector[j];
             }
             result.push(sum);
@@ -66,10 +94,10 @@ class Matrix {
             throw new Error("Matrix dimensions do not match for multiplication");
         }
         const result = new Matrix(this.rows, other.cols);
-        for (let i = 0; i < this.rows; i++) {
-            for (let j = 0; j < other.cols; j++) {
+        for (let i = 0; i &lt; this.rows; i++) {
+            for (let j = 0; j &lt; other.cols; j++) {
                 let sum = 0;
-                for (let k = 0; k < this.cols; k++) {
+                for (let k = 0; k &lt; this.cols; k++) {
                     sum += this.data[i][k] * other.data[k][j];
                 }
                 result.set(i, j, sum);
@@ -86,8 +114,8 @@ class Matrix {
         const rows = arr.length;
         const cols = arr[0].length;
         const matrix = new Matrix(rows, cols);
-        for (let i = 0; i < rows; i++) {
-            for (let j = 0; j < cols; j++) {
+        for (let i = 0; i &lt; rows; i++) {
+            for (let j = 0; j &lt; cols; j++) {
                 matrix.set(i, j, arr[i][j]);
             }
         }
@@ -105,18 +133,18 @@ class Matrix {
         const n = this.rows;
         const L = new Matrix(n, n);
         const U = new Matrix(n, n);
-        for (let j = 0; j < n; j++) {
+        for (let j = 0; j &lt; n; j++) {
             L.set(j, j, 1);
-            for (let i = 0; i <= j; i++) {
+            for (let i = 0; i &lt;= j; i++) {
                 let sum = 0;
-                for (let k = 0; k < i; k++) {
+                for (let k = 0; k &lt; i; k++) {
                     sum += L.get(i, k) * U.get(k, j);
                 }
                 U.set(i, j, this.get(i, j) - sum);
             }
-            for (let i = j + 1; i < n; i++) {
+            for (let i = j + 1; i &lt; n; i++) {
                 let sum = 0;
-                for (let k = 0; k < j; k++) {
+                for (let k = 0; k &lt; j; k++) {
                     sum += L.get(i, k) * U.get(k, j);
                 }
                 L.set(i, j, (this.get(i, j) - sum) / U.get(j, j));
@@ -135,17 +163,17 @@ class Matrix {
         }
         const n = this.rows;
         const L = new Matrix(n, n);
-        for (let i = 0; i < n; i++) {
-            for (let j = 0; j <= i; j++) {
+        for (let i = 0; i &lt; n; i++) {
+            for (let j = 0; j &lt;= i; j++) {
                 let sum = 0;
                 if (j === i) {
-                    for (let k = 0; k < j; k++) {
+                    for (let k = 0; k &lt; j; k++) {
                         sum += Math.pow(L.get(j, k), 2);
                     }
                     L.set(j, j, Math.sqrt(this.get(j, j) - sum));
                 }
                 else {
-                    for (let k = 0; k < j; k++) {
+                    for (let k = 0; k &lt; j; k++) {
                         sum += L.get(i, k) * L.get(j, k);
                     }
                     L.set(i, j, (this.get(i, j) - sum) / L.get(j, j));
@@ -160,8 +188,8 @@ class Matrix {
      */
     transpose() {
         const result = new Matrix(this.cols, this.rows);
-        for (let i = 0; i < this.rows; i++) {
-            for (let j = 0; j < this.cols; j++) {
+        for (let i = 0; i &lt; this.rows; i++) {
+            for (let j = 0; j &lt; this.cols; j++) {
                 result.set(j, i, this.get(i, j));
             }
         }
@@ -192,7 +220,7 @@ class Matrix {
             return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
         }
         let det = 0;
-        for (let j = 0; j < n; j++) {
+        for (let j = 0; j &lt; n; j++) {
             const minor = this.getMinor(matrix, 0, j);
             const sign = j % 2 === 0 ? 1 : -1;
             det += sign * matrix[0][j] * this.determinantRecursive(minor);
@@ -222,18 +250,18 @@ class Matrix {
         const n = this.rows;
         const identity = Matrix.identity(n);
         let vectors = new Array(n).fill(0).map(() => new Array(n).fill(0));
-        for (let i = 0; i < n; i++) {
+        for (let i = 0; i &lt; n; i++) {
             vectors[i][i] = 1;
         }
         let values = [];
         let matrix = this.clone();
-        for (let i = 0; i < n; i++) {
+        for (let i = 0; i &lt; n; i++) {
             let x = new Array(n).fill(1);
             let lambdaPrev = 0;
-            for (let iter = 0; iter < 100; iter++) {
+            for (let iter = 0; iter &lt; 100; iter++) {
                 const y = matrix.multiply(x);
                 const lambda = this.dotProduct(x, y);
-                if (Math.abs(lambda - lambdaPrev) < epsilon) {
+                if (Math.abs(lambda - lambdaPrev) &lt; epsilon) {
                     values.push(lambda);
                     break;
                 }
@@ -258,8 +286,8 @@ class Matrix {
      */
     static scalar(size, value) {
         const result = new Matrix(size, size);
-        for (let i = 0; i < size; i++) {
-            for (let j = 0; j < size; j++) {
+        for (let i = 0; i &lt; size; i++) {
+            for (let j = 0; j &lt; size; j++) {
                 result.set(i, j, i === j ? value : 0);
             }
         }
@@ -272,7 +300,7 @@ class Matrix {
      */
     static identity(size) {
         const identityMatrix = new Matrix(size, size);
-        for (let i = 0; i < size; i++) {
+        for (let i = 0; i &lt; size; i++) {
             identityMatrix.set(i, i, 1);
         }
         return identityMatrix;
@@ -289,13 +317,13 @@ class Matrix {
         const { L, U } = this.luFactorization();
         const n = this.rows;
         const inv = new Matrix(n, n);
-        for (let i = 0; i < n; i++) {
+        for (let i = 0; i &lt; n; i++) {
             const b = Matrix.scalar(n, 0);
             b.set(i, 0, 1);
             const y = new Array(n).fill(0);
-            for (let j = 0; j < n; j++) {
+            for (let j = 0; j &lt; n; j++) {
                 let sum = 0;
-                for (let k = 0; k < j; k++) {
+                for (let k = 0; k &lt; j; k++) {
                     sum += L.get(j, k) * y[k];
                 }
                 y[j] = (b.get(j, 0) - sum) / L.get(j, j);
@@ -303,12 +331,12 @@ class Matrix {
             const x = new Array(n).fill(0);
             for (let j = n - 1; j >= 0; j--) {
                 let sum = 0;
-                for (let k = j + 1; k < n; k++) {
+                for (let k = j + 1; k &lt; n; k++) {
                     sum += U.get(j, k) * x[k];
                 }
                 x[j] = (y[j] - sum) / U.get(j, j);
             }
-            for (let j = 0; j < n; j++) {
+            for (let j = 0; j &lt; n; j++) {
                 inv.set(j, i, x[j]);
             }
         }
@@ -334,8 +362,8 @@ class Matrix {
             throw new Error("Matrix dimensions do not match for subtraction");
         }
         const result = new Matrix(this.rows, this.cols);
-        for (let i = 0; i < this.rows; i++) {
-            for (let j = 0; j < this.cols; j++) {
+        for (let i = 0; i &lt; this.rows; i++) {
+            for (let j = 0; j &lt; this.cols; j++) {
                 result.set(i, j, this.data[i][j] - other.data[i][j]);
             }
         }
@@ -347,8 +375,8 @@ class Matrix {
      */
     clone() {
         const clone = new Matrix(this.rows, this.cols);
-        for (let i = 0; i < this.rows; i++) {
-            for (let j = 0; j < this.cols; j++) {
+        for (let i = 0; i &lt; this.rows; i++) {
+            for (let j = 0; j &lt; this.cols; j++) {
                 clone.set(i, j, this.get(i, j));
             }
         }
@@ -358,9 +386,9 @@ class Matrix {
      * Displays the matrix in the console.
      */
     display() {
-        for (let i = 0; i < this.rows; i++) {
+        for (let i = 0; i &lt; this.rows; i++) {
             let rowString = "";
-            for (let j = 0; j < this.cols; j++) {
+            for (let j = 0; j &lt; this.cols; j++) {
                 rowString += this.data[i][j] + "\t";
             }
             console.log(rowString);
@@ -368,3 +396,26 @@ class Matrix {
     }
 }
 exports.Matrix = Matrix;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Matrix.html">Matrix</a></li><li><a href="NDArray.html">NDArray</a></li><li><a href="Solver.html">Solver</a></li><li><a href="Sparse.html">Sparse</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Feb 25 2024 15:06:57 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
