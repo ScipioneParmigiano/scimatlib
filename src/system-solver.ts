@@ -1,6 +1,15 @@
 import { Matrix } from "./matrix";
 
+/**
+ * Provides methods for solving linear systems of equations using various algorithms.
+ */
 export class Solver {
+    /**
+     * Solves a linear system Ax = b using LU factorization.
+     * @param A The coefficient matrix A.
+     * @param b The right-hand side vector b.
+     * @returns The solution vector x.
+     */
     static solveUsingLU(A: Matrix, b: number[]): number[] {
         const { L, U } = A.luFactorization();
         const y = this.forwardSubstitution(L, b);
@@ -8,6 +17,12 @@ export class Solver {
         return x;
     }
 
+    /**
+     * Solves a linear system Ax = b using Cholesky decomposition.
+     * @param A The symmetric positive definite matrix A.
+     * @param b The right-hand side vector b.
+     * @returns The solution vector x.
+     */
     static solveUsingCholesky(A: Matrix, b: number[]): number[] {
         const L = A.choleskyDecomposition();
         const y = this.forwardSubstitution(L, b);
@@ -16,6 +31,14 @@ export class Solver {
         return x;
     }
 
+    /**
+     * Solves a linear system Ax = b using the Jacobi iterative method.
+     * @param A The coefficient matrix A.
+     * @param b The right-hand side vector b.
+     * @param maxIterations The maximum number of iterations.
+     * @param tolerance The tolerance for convergence.
+     * @returns The solution vector x.
+     */
     static solveUsingJacobi(A: Matrix, b: number[], maxIterations: number = 100, tolerance: number = 1e-6): number[] {
         const n = A.rows;
         let x = new Array(n).fill(0);
@@ -38,6 +61,12 @@ export class Solver {
         return x;
     }
 
+    /**
+     * Solves a linear system Ax = b using Gaussian elimination.
+     * @param A The coefficient matrix A.
+     * @param b The right-hand side vector b.
+     * @returns The solution vector x.
+     */
     static solveUsingGaussianElimination(A: Matrix, b: number[]): number[] {
         const n = A.rows;
         const augmentedMatrix = new Matrix(n, n + 1);
@@ -67,6 +96,12 @@ export class Solver {
         return x;
     }
 
+    /**
+     * Performs forward substitution to solve Ly = b.
+     * @param L The lower triangular matrix L.
+     * @param b The right-hand side vector b.
+     * @returns The solution vector y.
+     */
     private static forwardSubstitution(L: Matrix, b: number[]): number[] {
         const n = L.rows;
         const y: number[] = new Array(n);
@@ -80,6 +115,12 @@ export class Solver {
         return y;
     }
 
+    /**
+     * Performs back substitution to solve Ux = y.
+     * @param U The upper triangular matrix U.
+     * @param y The right-hand side vector y.
+     * @returns The solution vector x.
+     */
     private static backSubstitution(U: Matrix, y: number[]): number[] {
         const n = U.rows;
         const x: number[] = new Array(n);
@@ -94,6 +135,12 @@ export class Solver {
         return x;
     }
 
+    /**
+     * Calculates the error between two vectors.
+     * @param x The first vector.
+     * @param xPrev The second vector.
+     * @returns The maximum absolute difference between corresponding elements of the two vectors.
+     */
     private static calculateError(x: number[], xPrev: number[]): number {
         return Math.max(...x.map((value, index) => Math.abs(value - xPrev[index])));
     }
