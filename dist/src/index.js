@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Sparse = exports.Solver = exports.Matrix = exports.NDArray = void 0;
+const array_1 = require("./array");
+Object.defineProperty(exports, "NDArray", { enumerable: true, get: function () { return array_1.NDArray; } });
+const matrix_1 = require("./matrix");
+Object.defineProperty(exports, "Matrix", { enumerable: true, get: function () { return matrix_1.Matrix; } });
+const system_solver_1 = require("./system-solver");
+Object.defineProperty(exports, "Solver", { enumerable: true, get: function () { return system_solver_1.Solver; } });
+const sparse_1 = require("./sparse");
+Object.defineProperty(exports, "Sparse", { enumerable: true, get: function () { return sparse_1.Sparse; } });
